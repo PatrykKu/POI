@@ -114,7 +114,7 @@ def main():
         else:
             print("Chmura ta nie jest płaszczyzną.")
 
-    # Dostosowane parametry DBSCAN
+    #DBSCAN
     dbscan = DBSCAN(eps=2, min_samples=10)
     labels_dbscan = dbscan.fit_predict(points)
     plot_clusters(points, labels_dbscan, "Klasteryzacja DBSCAN (dostrojona)")
