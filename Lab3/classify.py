@@ -6,26 +6,20 @@ from sklearn.metrics import accuracy_score
 
 
 def classify(csv_path):
-    # Wczytaj dane
     df = pd.read_csv(csv_path)
 
-    # Podział na cechy (X) i etykiety (y)
-    X = df.drop('category', axis=1)  # Użyj wszystkich cech
+    X = df.drop('category', axis=1)
     y = df['category']
 
-    # Podział na zbiór treningowy i testowy (70:30)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-    # Skalowanie cech (ważne dla SVM)
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    # Klasyfikator SVM
-    clf = SVC(kernel='linear')  # Można zmienić na KNeighborsClassifier() dla KNN
+    clf = SVC(kernel='linear')
     clf.fit(X_train_scaled, y_train)
 
-    # Oblicz dokładność
     y_pred = clf.predict(X_test_scaled)
     accuracy = accuracy_score(y_test, y_pred)
     print(f"Dokładność klasyfikacji: {accuracy * 100:.2f}%")
